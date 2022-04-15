@@ -1,0 +1,18 @@
+Ida: 20210529191256r.mat
+Volta: 20210529191621r.mat
+Tempo no ADCP: entre 19h11 e 19h18
+
+Correspondentes: 00000123.BIN e 00000124.BIN
+
+De acordo com videos na pasta Protos-001, testes realizados
+entre 16h11 e 16h18
+
+Correspondencias verificadas
+20210529184255r -> 00000124.BIN
+ - No Mission Planner: entre aprox. 15h42 e 15h45
+
+20210529184525r -> 00000124.BIN
+ - No Mission Planner: entre aprox. 15h45 e 15h47
+
+20210529184747r -> 00000124.BIN
+ - No Mission Planner: entre aprox. 15h47 e 15h48
