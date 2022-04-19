@@ -95,7 +95,9 @@ reqmPlanimetrico = np.sqrt(sumPlan/len(e))
 reqmE = np.sqrt(sumE/len(e))
 reqmN = np.sqrt(sumN/len(e))
 
-print("reqm: ", reqmPlanimetrico)
+print("REQM Planimetrico: ", reqmPlanimetrico)
+print("REQM e: ", reqmE)
+print("REQM n: ", reqmN)
 
 plt.figure()
 plt.plot(tG, e, label = 'RTK')
@@ -113,20 +115,12 @@ plt.ylabel('n (m)')
 plt.xlabel('Tempo (s)')
 plt.grid()
 
-#plt.figure()
-#plt.plot(e-eb)
-
-#plt.figure()
-#plt.plot(n-nb)
-
-# plot do erro planimetrico
 plt.figure()
-plt.plot(erroE)
-plt.ylabel('Erro de posicionamento simples - componente e (m)')
-plt.xlabel('Tempo (s)')
+plt.plot(e, n, label='RTK')
+plt.plot(eb, nb, label='Ponto simples')
+plt.legend(loc='upper left')
+plt.ylabel('n (m)')
+plt.xlabel('e (m)')
 plt.grid()
-
-plt.figure()
-plt.plot(e, n)
 
 plt.show()

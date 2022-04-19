@@ -5,7 +5,7 @@ from datetime import datetime, date, time
 import pandas as pd
 from gnss import *
 
-rtkData = loadmat('20210529184255r.mat')
+rtkData = loadmat('20210529184525r.mat')
 boatData = loadmat('00000124.mat')
 
 latitude = rtkData['GPS']['Latitude'][0][0]
@@ -32,16 +32,16 @@ for i in range(0, boatSamples):
     boatLon[i] = boatLongitude[i].astype(float)
 
 # inicio do log do mission planner equivalente ao do adcp
-startGps = 775
+startGps = 200
 # frequencia do adcp é maior. Usa esse valor para equiparar os dados
 freqGps = 5
 tGps = np.zeros(gpsSamples)
 for i in range(0, gpsSamples):
     tGps[i] = i * freqGps
 
-startBoat = startGps
+startBoat = 1650
 # valor do final do teste
-stopBoat = 1300
+stopBoat = 2500
 tBoat = np.arange(startBoat, stopBoat, 1)
 
 # conversao para enu
@@ -53,7 +53,7 @@ gnssData = gnss(lat, lon)
 # conversao para enu
 boatData = gnss(boatLat, boatLon)
 (xBoat, yBoat, zBoat) = boatData.selfGeodetic2ecef()
-(x0Boat, y0Boat, z0Boat) = gnssData.geodetic2ecef(boatData.phiRad[0], boatData.lbdRad[0], boatData.h[0])
+(x0Boat, y0Boat, z0Boat) = gnssData.geodetic2ecef(gnssData.phiRad[0], gnssData.lbdRad[0], gnssData.h[0])
 (eBoat, nBoat, uBoat) = boatData.ecef2enu(xBoat, yBoat, zBoat, x0Boat, y0Boat, z0Boat)
 
 # devolve tempo para escala de 1 em 1 s
@@ -74,11 +74,11 @@ for i in range(len(eB)):
         c = c + 1
 
 # remove ultimos elementos para tirar casas não varridas pelo downsample no fim do vetor
-tG = tG[0:-2]
-e = e[0:-2]
-n = n[0:-2]
-eb = eb[0:-2]
-nb = nb[0:-2]
+tG = tG[0:-5]
+e = e[0:-5]
+n = n[0:-5]
+eb = eb[0:-5]
+nb = nb[0:-5]
 
 # Calculo do erro
 erroE = np.sqrt((e-eb)**2)
@@ -118,7 +118,7 @@ plt.grid()
 plt.figure()
 plt.plot(e, n, label='RTK')
 plt.plot(eb, nb, label='Ponto simples')
-plt.legend(loc='upper right')
+plt.legend(loc='upper left')
 plt.ylabel('n (m)')
 plt.xlabel('e (m)')
 plt.grid()
